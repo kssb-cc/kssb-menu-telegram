@@ -4,9 +4,12 @@ from telegram.ext.callbackcontext import CallbackContext
 from telegram.ext.commandhandler import CommandHandler
 from telegram.ext.messagehandler import MessageHandler
 from telegram.ext.filters import Filters
-import kssbmenu
+from dotenv import load_dotenv
+import kssbmenu, os
 
-updater = Updater("5371005183:AAFmbWVMP3_muBdSBvKwDQclf58G-jSL0Yk", use_context=True)
+load_dotenv()
+
+updater = Updater(os.getenv("TELEGRAM"), use_context=True)
 m = kssbmenu.kssb_menu()
 
 
