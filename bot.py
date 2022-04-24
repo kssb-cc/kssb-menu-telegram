@@ -31,11 +31,16 @@ def unknown(update: Update, context: CallbackContext):
 	update.message.reply_text("Sorry; I don't know this command. Please type \"/help\" for a listing of available ones.")
 
 
-updater.dispatcher.add_handler(CommandHandler("help", help))
-updater.dispatcher.add_handler(CommandHandler("menu", menu))
+def main():
+	print("Adding command handlers.")
+	updater.dispatcher.add_handler(CommandHandler("help", help))
+	updater.dispatcher.add_handler(CommandHandler("menu", menu))
+	
+	#Handle unknown commands.
+	updater.dispatcher.add_handler(MessageHandler(Filters.command, unknown))
+	
+	
+	updater.start_polling()
+	print("KSSB Menu Telegram Bot is running and pulling.")
 
-#Handle unknown commands.
-updater.dispatcher.add_handler(MessageHandler(Filters.command, unknown))
-
-
-updater.start_polling()
+if __name__ == "__main__": main()
