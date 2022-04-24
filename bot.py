@@ -6,6 +6,7 @@ from telegram.ext.messagehandler import MessageHandler
 from telegram.ext.filters import Filters
 from dotenv import load_dotenv
 import kssbmenu, os
+import sys
 
 load_dotenv()
 
@@ -13,6 +14,7 @@ updater = Updater(os.getenv("TELEGRAM"), use_context=True)
 m = kssbmenu.kssb_menu()
 
 
+# Start commands.
 def start(update: Update, context: CallbackContext):
 	update.message.reply_text("Welcome to the bot to get the KSSB menu!\n\nYou can type \"/menu\" to get the menu for the week.\n\nIf you have any complaints, questions etc, I am on Twitter @BrailleScreen.")
 
@@ -30,8 +32,20 @@ def menu(update: Update, context: CallbackContext):
 def unknown(update: Update, context: CallbackContext):
 	update.message.reply_text("Sorry; I don't know this command. Please type \"/help\" for a listing of available ones.")
 
+#End commands.
+
+def log(what):
+	#Used to log stuff to a file quickly. Also prints it out.
+	f = open("logs/events.log", "a")
+	f.write(what)
+	f.close()
+	print(what)
+
 
 def main():
+	print("Setting up stderr logger.")
+	errorlog = open("logs/error.log", "a")
+	sys.stderr=errorlog
 	print("Adding command handlers.")
 	updater.dispatcher.add_handler(CommandHandler("help", help))
 	updater.dispatcher.add_handler(CommandHandler("menu", menu))
