@@ -21,7 +21,7 @@ def help(update: Update, context: CallbackContext):
 
 def menu(update: Update, context: CallbackContext):
 	menu = ""
-	update.message.reply_text("Obtaining the menu. This should take about 5 seconds.")
+	update.message.reply_text("Obtaining the menu. This should only take a few seconds.")
 	result = m.download()
 	for k, v in result.items():
 		menu += f"Menu for {k}:\n{v}\n"
@@ -35,7 +35,7 @@ def main():
 	print("Adding command handlers.")
 	updater.dispatcher.add_handler(CommandHandler("help", help))
 	updater.dispatcher.add_handler(CommandHandler("menu", menu))
-	
+	updater.dispatcher.add_handler(CommandHandler("start", start))
 	#Handle unknown commands.
 	updater.dispatcher.add_handler(MessageHandler(Filters.command, unknown))
 	
