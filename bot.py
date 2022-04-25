@@ -5,8 +5,7 @@ from telegram.ext.commandhandler import CommandHandler
 from telegram.ext.messagehandler import MessageHandler
 from telegram.ext.filters import Filters
 from dotenv import load_dotenv
-import kssbmenu, os
-import sys
+import kssbmenu, os, sys
 
 load_dotenv()
 
@@ -29,6 +28,10 @@ def menu(update: Update, context: CallbackContext):
 		menu += f"Menu for {k}:\n{v}\n"
 	update.message.reply_text(menu)
 
+def user_info(update: Update, context: CallbackContext):
+	user = update.message.from_user
+	update.message.reply_text(f"Username: {user['username']}\n\nID: {user['id']}")
+
 def unknown(update: Update, context: CallbackContext):
 	update.message.reply_text("Sorry; I don't know this command. Please type \"/help\" for a listing of available ones.")
 
@@ -43,13 +46,14 @@ def log(what):
 
 
 def main():
-	print("Setting up stderr logger.")
+	print("Setting up stderr log.")
 	errorlog = open("logs/error.log", "a")
-	sys.stderr=errorlog
+	sys.stderr = errorlog
 	print("Adding command handlers.")
 	updater.dispatcher.add_handler(CommandHandler("help", help))
 	updater.dispatcher.add_handler(CommandHandler("menu", menu))
 	updater.dispatcher.add_handler(CommandHandler("start", start))
+	updater.dispatcher.add_handler(CommandHandler("user_info", user_info))
 	#Handle unknown commands.
 	updater.dispatcher.add_handler(MessageHandler(Filters.command, unknown))
 	
