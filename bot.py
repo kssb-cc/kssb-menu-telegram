@@ -40,16 +40,16 @@ def unknown(update: Update, context: CallbackContext):
 def log(what):
 	#Used to log stuff to a file quickly. Also prints it out.
 	f = open("logs/events.log", "a")
-	f.write(what)
+	f.write(f"{what}\n")
 	f.close()
 	print(what)
 
 
 def main():
-	print("Setting up stderr log.")
+	log("Setting up stderr log.")
 	errorlog = open("logs/error.log", "a")
 	sys.stderr = errorlog
-	print("Adding command handlers.")
+	log("Adding command handlers.")
 	updater.dispatcher.add_handler(CommandHandler("help", help))
 	updater.dispatcher.add_handler(CommandHandler("menu", menu))
 	updater.dispatcher.add_handler(CommandHandler("start", start))
@@ -59,6 +59,6 @@ def main():
 	
 	
 	updater.start_polling()
-	print("KSSB Menu Telegram Bot is running and pulling.")
+	log("KSSB Menu Telegram Bot is running and pulling.")
 
 if __name__ == "__main__": main()

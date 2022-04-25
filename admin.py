@@ -7,7 +7,7 @@ If so, the action can continue. If not it will fail.
 
 def is_administrator(id):
 	af = open("config/admins.txt", "r")
-	admins=af.read().splitlines("\n")
+	admins = af.read().splitlines("\n")
 	af.close()
 	return id in admins
 
