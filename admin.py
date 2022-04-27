@@ -6,8 +6,11 @@ If so, the action can continue. If not it will fail.
 """
 
 def is_administrator(id):
-	af = open("config/admins.txt", "r")
-	admins = af.read().splitlines("\n")
-	af.close()
+	id = str(id)
+	admins = []
+	print("Type of ID: "+str(type(id)))
+	with open("config/admins.txt", "r") as f:
+		admins = f.read().splitlines()
+	print("Okay. "+str(admins))
+	print(str(id in admins))
 	return id in admins
-

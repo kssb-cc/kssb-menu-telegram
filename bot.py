@@ -5,10 +5,11 @@ from telegram.ext.commandhandler import CommandHandler
 from telegram.ext.messagehandler import MessageHandler
 from telegram.ext.filters import Filters
 from dotenv import load_dotenv
-import kssbmenu, os, sys
+import admin, kssbmenu, os, sys, time
 
 load_dotenv()
 
+should_die = False
 updater = Updater(os.getenv("TELEGRAM"), use_context=True)
 m = kssbmenu.kssb_menu()
 
@@ -32,6 +33,21 @@ def user_info(update: Update, context: CallbackContext):
 	user = update.message.from_user
 	update.message.reply_text(f"Username: {user['username']}\n\nID: {user['id']}")
 
+def exit_bot(update: Update, context: CallbackContext):
+	user = update.message.from_user
+	if admin.is_administrator(user['id'])==False:
+		update.message.reply_text("Error: You are not a bot administrator.")
+		return
+	update.message.reply_text("Initiating exit process.")
+	log(f"User {user['first_name']} {user['last_name']} is exiting the bot.")
+	update.message.reply_text("Logged; exiting now.")
+	updater.idle()
+	updater.stop()
+	sys.exit("Sys? ")
+	os.kill(os.getpid())
+	
+	
+
 def unknown(update: Update, context: CallbackContext):
 	update.message.reply_text("Sorry; I don't know this command. Please type \"/help\" for a listing of available ones.")
 
@@ -54,6 +70,7 @@ def main():
 	updater.dispatcher.add_handler(CommandHandler("menu", menu))
 	updater.dispatcher.add_handler(CommandHandler("start", start))
 	updater.dispatcher.add_handler(CommandHandler("user_info", user_info))
+	updater.dispatcher.add_handler(CommandHandler("exit", exit_bot))
 	#Handle unknown commands.
 	updater.dispatcher.add_handler(MessageHandler(Filters.command, unknown))
 	
