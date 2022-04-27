@@ -41,10 +41,8 @@ def exit_bot(update: Update, context: CallbackContext):
 	update.message.reply_text("Initiating exit process.")
 	log(f"User {user['first_name']} {user['last_name']} is exiting the bot.")
 	update.message.reply_text("Logged; exiting now.")
-	updater.idle()
-	updater.stop()
 	sys.exit("Sys? ")
-	os.kill(os.getpid())
+	os.system("kill "+os.getpid())
 	
 	
 
