@@ -9,7 +9,6 @@ import admin, kssbmenu, os, sys, time
 
 load_dotenv()
 
-should_die = False
 updater = Updater(os.getenv("TELEGRAM"), use_context=True)
 m = kssbmenu.kssb_menu()
 
