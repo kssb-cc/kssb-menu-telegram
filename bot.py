@@ -64,10 +64,9 @@ def unknown(update: Update, context: CallbackContext):
 
 
 def log(what):
-	# Used to log stuff to a file quickly. Also prints it out.
-	f = open("logs/events.log", "a")
-	f.write(f"{what}\n")
-	f.close()
+	# Tiny 'loger' thing. Logs to a file and prints. Used here because logger might be a bit much. Should fix...
+	with open("logs/events.log", "a") as f:
+		f.write(f"{what}\n")
 	print(what)
 
 
