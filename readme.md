@@ -8,8 +8,8 @@ As the user, all one must do is add 'kssbmenubot' to your Telegram; type '/menu'
 As one who wishes to run the code, it's as simple as:
 * Obtain a Telegram bot token; outside of the scope of this readme. Create a file called `.env`. See `example_env` for an example.
 * Clone this repo.
-* `pip install -r requirements.txt`
-* `python3 bot.py` or `run.bat` (Windows).
+* `pip3 install -r requirements.txt`
+* `python3 bot.py`.
 
 ## Final notes
 For more information (including initial work on obtaining the menu) see the [KSSB-Menu repo itself](https://github.com/kssb-cc/kssb-menu).
