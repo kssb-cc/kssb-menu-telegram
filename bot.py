@@ -5,12 +5,12 @@ from telegram.ext.commandhandler import CommandHandler
 from telegram.ext.messagehandler import MessageHandler
 from telegram.ext.filters import Filters
 from dotenv import load_dotenv
-import admin, kssbmenu, os, sys, time
+import admin, kssb_menu, os, sys, time
 
 load_dotenv()
 
 updater = Updater(os.getenv("TELEGRAM"), use_context=True)
-m = kssbmenu.kssb_menu()
+m = kssb_menu.KssbMenu()
 
 
 # Start commands.
